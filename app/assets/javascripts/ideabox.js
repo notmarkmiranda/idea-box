@@ -2,6 +2,20 @@ $(document).ready(function(){
   loadIdeas();
   createIdea();
   deleteIdea();
+  dataSearchTerms();
+
+
+  $('.search-box').on('keyup', function(){
+    dataSearchTerms();
+    var searchTerm = $(this).val().toLowerCase();
+    $('.list-group div').each(function(){
+      if ($(this).filter('[data-search-term *= ' + searchTerm + ']').length > 0 || searchTerm.length < 1){
+        $(this).show();
+      } else {
+        $(this).hide();
+      }
+    })
+  })
 
   $('body').on('click', '.list-group-item-heading', function(){
     this.setAttribute('contentEditable', 'true')
@@ -14,22 +28,6 @@ $(document).ready(function(){
       }
     });
   });
-
-
-
-  $('.search-box').on('keyup', function(){
-    dataSearchTerms();
-    var searchTerm = $(this).val().toLowerCase();
-    // debugger
-    $('.list-group div').children().each(function(){
-      if ($(this).filter('[data-search-term *= ' + searchTerm + ']').length > 0 || searchTerm.length < 1){
-        $(this).show();
-      } else {
-
-        $(this).hide();
-      }
-    })
-  })
 
   $('body').on('click', '.list-group-item-text', function(){
     this.setAttribute('contentEditable', 'true')
@@ -125,7 +123,7 @@ function loadIdeas(){
 function returnIdeas(idea){
   return "<div class='list-group-item' id='idea-" + idea.id + "'> \
             <h4 class='list-group-item-heading' id='title-" + idea.id + "' data-id='" + idea.id + "'>" + idea.title + "</h4> \
-            <p class='list-group-item-text' id='body-" + idea.id + "' data-id='" + idea.id + "'>" + idea.body + "</p> \
+            <p class='list-group-item-text body' id='body-" + idea.id + "' data-id='" + idea.id + "'>" + idea.body + "</p> \
             <p id='idea-quality-" + idea.id + "' class='list-group-item-text muted'>Quality: <span>" + idea.quality + "</span></p> \
             <i class='fa fa-thumbs-up' aria-hidden='true' data-id=" + idea.id + "></i> \
             <i class='fa fa-thumbs-down' aria-hidden='true' data-id=" + idea.id + "></i> \
@@ -135,10 +133,10 @@ function returnIdeas(idea){
 
 function dataSearchTerms(){
   $('.list-group div h4').each(function(){
-    $(this).attr('data-search-term', $(this).text().toLowerCase());
+    $(this).parent().attr('data-search-term', $(this).text().toLowerCase());
   })
 
-  $('.list-group div p.list-group-item-text').each(function(){
-    $(this).attr('data-search-term', $(this).text().toLowerCase());
+  $('.list-group div p.body').each(function(){
+    $(this).parent().attr('data-search-term', $(this).parent().attr('data-search-term') + " " + $(this).text().toLowerCase());
   })
 }
