@@ -15,3 +15,12 @@ function createIdea(){
     })
   })
 }
+
+function resetForm(){
+  $('#idea-title').val('')
+  $('#idea-body').val('');
+}
+
+function prependIdea(idea){
+  $('.list-group').prepend(returnIdeas(idea))
+}

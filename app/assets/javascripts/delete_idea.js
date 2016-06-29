@@ -9,3 +9,7 @@ function deleteIdea(){
     })
   })
 }
+
+function removeIdea(idNum){
+  $('#idea-' + idNum).slideUp(500);
+}
