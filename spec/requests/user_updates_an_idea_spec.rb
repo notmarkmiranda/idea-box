@@ -7,14 +7,14 @@ describe 'update /api/v1/ideas - happy paths' do
 
   it "PATCH#update - +1" do
     idea = Idea.first
-    patch "/api/v1/ideas/#{idea.id}", {quality: "1"}
+    patch "/api/v1/ideas/#{idea.id}", {qualityUpdate: "1"}
     idea = Idea.first
     expect(idea.quality).to eq("genius")
   end
 
   it "PATCH#update - -1" do
     idea = Idea.first
-    patch "/api/v1/ideas/#{idea.id}", {quality: "-1"}
+    patch "/api/v1/ideas/#{idea.id}", {qualityUpdate: "-1"}
     idea = Idea.first
     expect(idea.quality).to eq("swill")
   end
@@ -29,14 +29,14 @@ describe 'update /api/v1/ideas - sad paths - 1' do
 
   it "PATCH#update - -1" do
     idea = Idea.first
-    patch "/api/v1/ideas/#{idea.id}", {quality: "-1"}
+    patch "/api/v1/ideas/#{idea.id}", {qualityUpdate: "-1"}
     idea = Idea.first
     expect(idea.quality).to eq("swill")
   end
 
   it "PATCH#update - +1" do
     idea = Idea.last
-    patch "/api/v1/ideas/#{idea.id}", {quality: "1"}
+    patch "/api/v1/ideas/#{idea.id}", {qualityUpdate: "1"}
     idea = Idea.last
     expect(idea.quality).to eq("genius")
   end

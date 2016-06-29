@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627180837) do
+ActiveRecord::Schema.define(version: 20160629190923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "idea_tags", force: :cascade do |t|
+    t.integer "idea_id"
+    t.integer "tag_id"
+  end
+
+  add_index "idea_tags", ["idea_id"], name: "index_idea_tags_on_idea_id", using: :btree
+  add_index "idea_tags", ["tag_id"], name: "index_idea_tags_on_tag_id", using: :btree
 
   create_table "ideas", force: :cascade do |t|
     t.string   "title"
@@ -24,4 +32,10 @@ ActiveRecord::Schema.define(version: 20160627180837) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+  end
+
+  add_foreign_key "idea_tags", "ideas"
+  add_foreign_key "idea_tags", "tags"
 end

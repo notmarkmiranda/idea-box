@@ -2,7 +2,9 @@ function createIdea(){
   $('#create-idea').on('click', function(){
     var ideaTitle = $('#idea-title').val();
     var ideaBody = $('#idea-body').val();
-    var ideaData = { title: ideaTitle, body: ideaBody }
+    var ideaTags = $('#idea-tags').val();
+    var ideaData = { title: ideaTitle, body: ideaBody, tags: ideaTags }
+    debugger
     $.ajax({
       method: 'POST',
       url: '/api/v1/ideas',
@@ -19,6 +21,7 @@ function createIdea(){
 function resetForm(){
   $('#idea-title').val('')
   $('#idea-body').val('');
+  $('#idea-tags').val('');
 }
 
 function prependIdea(idea){

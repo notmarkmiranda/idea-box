@@ -10,7 +10,11 @@ class Api::V1::IdeasController < Api::ApiController
   end
 
   def create
-    respond_with Idea.create(idea_params)
+    idea = Idea.new(idea_params)
+    if idea.save
+      Tag.setup(params[:tags], idea.id) if params[:tags]
+      respond_with idea
+    end
   end
 
   def destroy
@@ -28,7 +32,7 @@ class Api::V1::IdeasController < Api::ApiController
   end
 
   private
-    def idea_params
-      params.permit(:title, :body, :quality)
-    end
+  def idea_params
+    params.permit(:title, :body, :quality)
+  end
 end

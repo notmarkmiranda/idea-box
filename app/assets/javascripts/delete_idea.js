@@ -11,5 +11,8 @@ function deleteIdea(){
 }
 
 function removeIdea(idNum){
-  $('#idea-' + idNum).slideUp(500);
+  // $('#idea-' + idNum).remove();
+  $('#idea-' + idNum).slideUp(500, function(){
+    $(this).remove();
+  })
 }
