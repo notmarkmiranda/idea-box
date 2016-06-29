@@ -19,10 +19,11 @@ class Api::V1::IdeasController < Api::ApiController
 
   def update
     @idea = Idea.find(params[:id])
-    if !((@idea.genius? && params[:quality] == "1") || (@idea.swill? && params[:quality] == "-1"))
-      @idea.increment!(:quality, params[:quality].to_i)
+    if params[:qualityUpdate] &&
+        !((@idea.genius? && params[:qualityUpdate] == "1")|| (@idea.swill? && params[:qualityUpdate] == "-1"))
+        @idea.increment!(:quality, params[:qualityUpdate].to_i)
     end
-    respond_with @idea
+    respond_with @idea if @idea.update(idea_params)
   end
 
   private
