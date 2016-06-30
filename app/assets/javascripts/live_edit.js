@@ -11,7 +11,7 @@ function editListener(){
     });
   });
 
-  $('body').on('click', '.list-group-item-text', function(){
+  $('body').on('click', '.list-group-item-text.body', function(){
     this.setAttribute('contentEditable', 'true')
     var dataId = $(this).data('id')
     var id = $(this).attr('id')

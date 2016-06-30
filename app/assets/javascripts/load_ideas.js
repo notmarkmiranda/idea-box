@@ -25,12 +25,12 @@ function truncateBody(body){
 }
 
 function returnIdeas(idea){
-
+  var tagNames = idea.tags.map(function(tag){ return tag.name})
   var shortBody = truncateBody(idea.body)
   return "<div class='list-group-item' id='idea-" + idea.id + "'> \
             <h4 class='list-group-item-heading' id='title-" + idea.id + "' data-id='" + idea.id + "'>" + idea.title + "</h4> \
             <p class='list-group-item-text body' id='body-" + idea.id + "' data-id='" + idea.id + "'>" + shortBody + "</p> \
-            <p class='list-group-item-text tags' id='tag-" +  + "'></p> \
+            <p class='list-group-item-text tags' id='tag-" + idea.id + "'>Tags: " + tagNames + "</p> \
             <p id='idea-quality-" + idea.id + "' class='list-group-item-text muted'>Quality: <span>" + idea.quality + "</span></p> \
             <i class='fa fa-thumbs-up' aria-hidden='true' data-id=" + idea.id + "></i> \
             <i class='fa fa-thumbs-down' aria-hidden='true' data-id=" + idea.id + "></i> \
